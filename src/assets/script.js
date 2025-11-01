@@ -112,6 +112,24 @@ function pay(amount)
 }
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
+function currency(selectedCurrency) {
+    switch(selectedCurrency) {
+        case 'EUR':
+            products.forEach(p => p.price = +(p.price * 0.87).toFixed(2)); 
+            break;
+        case 'YEN':
+            products.forEach(p => p.price = +(p.price * 154.01).toFixed(2)); 
+            break;
+        default: // USD
+            products.forEach(p => {
+                
+                if(p.productId === 1) p.price = 2.99;
+                if(p.productId === 2) p.price = 1.99;
+                if(p.productId === 3) p.price = 3.49;
+            });
+            break;
+    }
+}
 
 
 /* The following is for running unit tests. 
@@ -131,5 +149,5 @@ module.exports = {
    pay, 
    emptyCart,
    /* Uncomment the following line if completing the currency converter bonus */
-   //currency
+   currency
 }
