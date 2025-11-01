@@ -1,4 +1,5 @@
 /* Create an array named products which you will use to add all of your product object literals that you create in the next step. */
+
 const products = [
   {
     name: "Cherry",
@@ -24,21 +25,25 @@ const products = [
   }
 
 ];
-
+// an empty array named cart holds the products added to the shopping cart.
 let cart = [];
 
+// add product to cart function finds product by id and adds it to cart and increases quantity to 1
 function addProductToCart(addProductId)
 {
   const product = products.find(item => item.productId === addProductId);
-  if (product) {
+  if (product) 
+  {
     product.quantity++;
     const cartItem = cart.find(item => item.productId === addProductId);
-    if (!cartItem) {
+    if (!cartItem) 
+    {
       cart.push(product);
     }
   }
 }
 
+// increase quantity function increases quantity of product in cart by 1 each time
 function increaseQuantity(productId) 
 {
   const product = products.find(item => item.productId === productId);
@@ -48,7 +53,7 @@ function increaseQuantity(productId)
   }
 }
 
-
+// decrease quantity function decreases quantity of product in cart by 1 each time 
 function decreaseQuantity(productId)
 {
   const product = products.find(item => item.productId === productId);
@@ -66,7 +71,7 @@ function decreaseQuantity(productId)
   }
   
 }
-
+// remove product from cart function removes product from cart regardless of quantity
 function removeProductFromCart(productId)
 {
   const product = products.find(item => item.productId === productId);
@@ -82,6 +87,7 @@ function removeProductFromCart(productId)
   }
 }
 
+// cart total function calculates total cost of all products in cart
 function cartTotal()
 {
   let total =0;
@@ -92,13 +98,14 @@ function cartTotal()
 
   return total;
 }
-/* Create a function called emptyCart that empties the products from the cart */
+// function emptyCart empties the products from the cart
 function emptyCart()
 {
   cart.forEach(item => item.quantity = 0);
   cart = [];
 }
 
+// pay function takes an amount and returns the change after paying for the cart total
 function pay(amount)
 {
   const totalCost = cartTotal();
@@ -112,6 +119,8 @@ function pay(amount)
 }
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
+
+// currency converter function converts product prices based on selected currency
 function currency(selectedCurrency) {
     switch(selectedCurrency) {
         case 'EUR':
@@ -138,6 +147,7 @@ function currency(selectedCurrency) {
    npm run test
 */
 
+// module.exports allows the functions and variables to be used in other files
 module.exports = {
    products,
    cart,
