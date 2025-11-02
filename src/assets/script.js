@@ -27,11 +27,16 @@ const products = [
 ];
 // an empty array named cart holds the products added to the shopping cart.
 let cart = [];
-
+// variable to keep track of total paid amount
+let totalPaid = 0;
+// helper function to get product by id
+function getProductById(productId) {
+  return products.find(item => item.productId === productId);
+}
 // add product to cart function finds product by id and adds it to cart and increases quantity to 1
 function addProductToCart(addProductId)
 {
-  const product = products.find(item => item.productId === addProductId);
+  const product = getProductById(addProductId);
   if (product) 
   {
     product.quantity++;
@@ -46,7 +51,7 @@ function addProductToCart(addProductId)
 // increase quantity function increases quantity of product in cart by 1 each time
 function increaseQuantity(productId) 
 {
-  const product = products.find(item => item.productId === productId);
+  const product = getProductById(productId);
   if(product)
   {
     product.quantity++;
@@ -56,7 +61,7 @@ function increaseQuantity(productId)
 // decrease quantity function decreases quantity of product in cart by 1 each time 
 function decreaseQuantity(productId)
 {
-  const product = products.find(item => item.productId === productId);
+  const product = getProductById(productId);
   if(product && product.quantity >0)
   {
     product.quantity--;
@@ -74,7 +79,7 @@ function decreaseQuantity(productId)
 // remove product from cart function removes product from cart regardless of quantity
 function removeProductFromCart(productId)
 {
-  const product = products.find(item => item.productId === productId);
+  const product = getProductById(productId);
   if(product)
   {
     product.quantity = 0;
@@ -103,19 +108,27 @@ function emptyCart()
 {
   cart.forEach(item => item.quantity = 0);
   cart = [];
+
+  drawCart();
 }
 
+
 // pay function takes an amount and returns the change after paying for the cart total
+
 function pay(amount)
 {
-  const totalCost = cartTotal();
+  totalPaid += amount;
 
-  if(amount >= totalCost)
+  const totalCost = cartTotal();
+  const remainingBalance = totalPaid - totalCost;
+
+  if(remainingBalance >= 0)
   {
     emptyCart();
+    totalPaid = 0;
   }
 
-  return amount - totalCost;
+  return remainingBalance;
 }
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
